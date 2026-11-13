@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoultryPal | Farm Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2 class="logo">🐔 PoultryPal</h2>
+
+            <p class="menu-title">MENU</p>
+
+            <nav>
+                <button class="nav-btn active" data-page="dashboard">Dashboard</button>
+                <button class="nav-btn" data-page="flock">Flock Management</button>
+                <button class="nav-btn" data-page="feed">Feed Inventory</button>
+                <button class="nav-btn" data-page="health">Health Records</button>
+                <button class="nav-btn" data-page="expenses">Expenses</button>
+                <button class="nav-btn" data-page="reports">Reports</button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <p>Broiler Farm Management</p>
+                <small>PoultryPal v1.0</small>
+            </div>
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main">
+
+            <header class="topbar">
+                <div>
+                    <h2 id="page-title">Dashboard</h2>
+                    <p>Welcome back! Here's your farm overview.</p>
+                </div>
+
+                <div class="profile">
+                    <span>👤</span>
+                    <div>
+                        <strong>Farm Manager</strong>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+            </header>
+
+
+            <!-- Dashboard -->
+            <section class="page active" id="dashboard">
+
+                <div class="welcome">
+                    <div>
+                        <h2>Your farm at a glance 🐔</h2>
+                        <p>Monitor your broiler production and farm activities.</p>
+                    </div>
+                    <span id="today"></span>
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <p>Total Birds</p>
+                        <h2 id="total-birds">0</h2>
+                        <small>Current flock size</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Feed Stock</p>
+                        <h2 id="total-feed">0 kg</h2>
+                        <small>Available feed</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Health Records</p>
+                        <h2 id="total-health">0</h2>
+                        <small>Recorded activities</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Total Expenses</p>
+                        <h2 id="total-expenses">₦0</h2>
+                        <small>Recorded expenses</small>
+                    </div>
+
+                </div>
+
+                <div class="content-grid">
+
+                    <div class="panel">
+                        <h3>Farm Overview</h3>
+                        <p>Keep track of your farm activities.</p>
+
+                        <div class="overview-item">
+                            <span>Active flock</span>
+                            <strong id="overview-birds">0 birds</strong>
+                        </div>
+
+                        <div class="overview-item">
+                            <span>Available feed</span>
+                            <strong id="overview-feed">0 kg</strong>
+                        </div>
+
+                        <div class="overview-item">
+                            <span>Health activities</span>
+                            <strong id="overview-health">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h3>Quick Actions</h3>
+
+                        <button class="action-btn" data-go="flock">
+                            + Add New Flock
+                        </button>
+
+                        <button class="action-btn" data-go="feed">
+                            + Update Feed Stock
+                        </button>
+
+                        <button class="action-btn" data-go="health">
+                            + Add Health Record
+                        </button>
+
+                        <button class="action-btn" data-go="expenses">
+                            + Record Expense
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Flock Management -->
+            <section class="page" id="flock">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Flock Management</h2>
+                        <p>Manage your broiler batches.</p>
+                    </div>
+                </div>
+
+                <form id="flock-form" class="panel form">
+
+                    <h3>Add New Flock</h3>
+
+                    <label>Batch Name</label>
+                    <input type="text" id="batch-name"
+                        placeholder="e.g. Batch 001" required>
+
+                    <label>Number of Birds</label>
+                    <input type="number" id="bird-count"
+                        min="1" placeholder="Enter number of birds" required>
+
+                    <label>Arrival Date</label>
+                    <input type="date" id="arrival-date" required>
+
+                    <button type="submit">Add Flock</button>
+
+                </form>
+
+                <div class="panel">
+                    <h3>Registered Flocks</h3>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Batch</th>
+                                    <th>Birds</th>
+                                    <th>Arrival Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="flock-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- Feed Inventory -->
+            <section class="page" id="feed">
+
+                <h2>Feed Inventory</h2>
+                <p>Monitor your farm's feed stock.</p>
+
+                <form id="feed-form" class="panel form">
+
+                    <h3>Add Feed Stock</h3>
+
+                    <label>Feed Type</label>
+                    <select id="feed-type" required>
+                        <option value="">Select feed type</option>
+                        <option>Starter Feed</option>
+                        <option>Grower Feed</option>
+                        <option>Finisher Feed</option>
+                    </select>
+
+                    <label>Quantity (kg)</label>
+                    <input type="number" id="feed-quantity"
+                        min="1" placeholder="Quantity in kg" required>
+
+                    <button type="submit">Add Feed</button>
+
+                </form>
+
+                <div class="panel">
+                    <h3>Feed Stock</h3>
+                    <div id="feed-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- Health Records -->
+            <section class="page" id="health">
+
+                <h2>Health Records</h2>
+                <p>Keep records of flock health activities.</p>
+
+                <form id="health-form" class="panel form">
+
+                    <h3>New Health Record</h3>
+
+                    <label>Activity</label>
+                    <select id="health-type" required>
+                        <option value="">Select activity</option>
+                        <option>Vaccination</option>
+                        <option>Health Observation</option>
+                        <option>Veterinary Visit</option>
+                        <option>Medication Record</option>
+                    </select>
+
+                    <label>Description</label>
+                    <input type="text" id="health-description"
+                        placeholder="Enter details" required>
+
+                    <label>Date</label>
+                    <input type="date" id="health-date" required>
+
+                    <button type="submit">Save Record</button>
+
+                </form>
+
+                <div class="panel">
+                    <h3>Health History</h3>
+                    <div id="health-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- Expenses -->
+            <section class="page" id="expenses">
+
+                <h2>Farm Expenses</h2>
+                <p>Track your farm spending.</p>
+
+                <form id="expense-form" class="panel form">
+
+                    <h3>Record Expense</h3>
+
+                    <label>Expense Category</label>
+                    <select id="expense-category" required>
+                        <option value="">Select category</option>
+                        <option>Feed</option>
+                        <option>Medication</option>
+                        <option>Equipment</option>
+                        <option>Labour</option>
+                        <option>Other</option>
+                    </select>
+
+                    <label>Amount (₦)</label>
+                    <input type="number" id="expense-amount"
+                        min="1" placeholder="Enter amount" required>
+
+                    <label>Description</label>
+                    <input type="text" id="expense-description"
+                        placeholder="Expense details" required>
+
+                    <button type="submit">Save Expense</button>
+
+                </form>
+
+                <div class="panel">
+                    <h3>Expense History</h3>
+                    <div id="expense-list"></div>
+                </div>
+
+            </section>
+
+
+            <!-- Reports -->
+            <section class="page" id="reports">
+
+                <h2>Farm Reports</h2>
+                <p>A summary of your farm records.</p>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <p>Total Birds</p>
+                        <h2 id="report-birds">0</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Total Feed</p>
+                        <h2 id="report-feed">0 kg</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Total Expenses</p>
+                        <h2 id="report-expenses">₦0</h2>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
