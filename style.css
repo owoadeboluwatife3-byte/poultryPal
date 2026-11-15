@@ -1,4 +1,6 @@
 
+/* GENERAL RESET */
+
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +23,85 @@ body {
     color: var(--text);
 }
 
-button, input, select {
+/* IMPORTANT: HIDE ELEMENTS WITH THE HIDDEN ATTRIBUTE */
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* LANDING PAGE */
+
+#landing-page {
+    min-height: 100vh;
+    background: #101810;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* LANDING NAVIGATION */
+
+.landing-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 8%;
+}
+
+.landing-nav h2 {
+    color: #7ed957;
+}
+
+.landing-nav a {
+    color: white;
+    text-decoration: none;
+}
+
+/* HERO SECTION */
+
+.hero {
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    max-width: 700px;
+}
+
+.hero p {
+    color: #b8c2b8;
+    max-width: 550px;
+    line-height: 1.7;
+}
+
+#get-started {
+    margin-top: 20px;
+    padding: 14px 30px;
+    background: #7ed957;
+    color: #101810;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#get-started:hover {
+    background: #68bd43;
+}
+
+
+/* GENERAL FORM ELEMENTS */
+
+button,
+input,
+select {
     font: inherit;
 }
 
@@ -29,10 +109,14 @@ button {
     cursor: pointer;
 }
 
+
+/* APPLICATION CONTAINER */
+
 .app {
     display: flex;
     min-height: 100vh;
 }
+
 
 /* SIDEBAR */
 
@@ -88,7 +172,8 @@ button {
     line-height: 2;
 }
 
-/* MAIN */
+
+/* MAIN CONTENT */
 
 .main {
     flex: 1;
@@ -146,6 +231,7 @@ button {
     margin-top: 4px;
 }
 
+
 /* PAGE CONTROL */
 
 .page {
@@ -176,6 +262,7 @@ button {
 #today {
     font-size: 12px;
 }
+
 
 /* STAT CARDS */
 
@@ -208,6 +295,7 @@ button {
     color: var(--muted);
     font-size: 11px;
 }
+
 
 /* CONTENT PANELS */
 
@@ -267,6 +355,7 @@ button {
     background: #e4f1e7;
 }
 
+
 /* FORMS */
 
 .form {
@@ -309,6 +398,7 @@ button {
     background: var(--primary-dark);
 }
 
+
 /* TABLES */
 
 .table-wrapper {
@@ -321,7 +411,8 @@ table {
     min-width: 400px;
 }
 
-th, td {
+th,
+td {
     text-align: left;
     padding: 14px;
     border-bottom: 1px solid var(--border);
@@ -332,6 +423,7 @@ th {
     color: var(--muted);
     background: #f8faf8;
 }
+
 
 /* LIST ITEMS */
 
@@ -354,6 +446,7 @@ th {
     margin-top: 5px;
 }
 
+
 /* RESPONSIVENESS */
 
 @media (max-width: 1000px) {
@@ -363,6 +456,7 @@ th {
 }
 
 @media (max-width: 700px) {
+
     .app {
         display: block;
     }
@@ -435,6 +529,10 @@ th {
 
     .content-grid {
         grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 34px;
     }
 }
 

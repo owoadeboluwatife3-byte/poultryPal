@@ -1,12 +1,41 @@
 
+// =====================================
 // GET HTML ELEMENTS
+// =====================================
 
 const navButtons = document.querySelectorAll(".nav-btn");
 const pages = document.querySelectorAll(".page");
 const pageTitle = document.getElementById("page-title");
 
 
+// =====================================
+// LANDING PAGE
+// =====================================
+
+// Select the landing page
+const landingPage = document.getElementById("landing-page");
+
+// Select the entire application
+const appContainer = document.getElementById("app-container");
+
+// Select the Get Started button
+const getStartedBtn = document.getElementById("get-started");
+
+// Listen for a click on Get Started
+getStartedBtn.addEventListener("click", function () {
+
+    // Hide the landing page
+    landingPage.hidden = true;
+
+    // Show the entire application
+    appContainer.hidden = false;
+
+});
+
+
+// =====================================
 // DATABASE (LOCAL STORAGE)
+// =====================================
 
 let flocks = JSON.parse(localStorage.getItem("flocks")) || [];
 let feeds = JSON.parse(localStorage.getItem("feeds")) || [];
@@ -14,92 +43,129 @@ let healthRecords = JSON.parse(localStorage.getItem("healthRecords")) || [];
 let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
 
+// =====================================
 // SAVE DATA
+// =====================================
 
 function saveData() {
+
     localStorage.setItem("flocks", JSON.stringify(flocks));
     localStorage.setItem("feeds", JSON.stringify(feeds));
     localStorage.setItem("healthRecords", JSON.stringify(healthRecords));
     localStorage.setItem("expenses", JSON.stringify(expenses));
+
 }
 
 
+// =====================================
 // NAVIGATION
+// =====================================
 
 function showPage(pageName) {
 
+    // Remove active class from every page
     pages.forEach(page => {
         page.classList.remove("active");
     });
 
+    // Remove active class from every navigation button
     navButtons.forEach(button => {
         button.classList.remove("active");
     });
 
+    // Show the selected page
     document.getElementById(pageName).classList.add("active");
 
+    // Find the button belonging to the selected page
     const activeButton = document.querySelector(
         `[data-page="${pageName}"]`
     );
 
+    // Highlight the selected button
     if (activeButton) {
         activeButton.classList.add("active");
     }
 
+    // Update the page heading
     pageTitle.textContent =
         pageName.charAt(0).toUpperCase() + pageName.slice(1);
+
 }
 
+
+// Listen for clicks on sidebar buttons
 navButtons.forEach(button => {
+
     button.addEventListener("click", () => {
         showPage(button.dataset.page);
     });
+
 });
 
 
+// =====================================
 // QUICK ACTION BUTTONS
+// =====================================
 
 document.querySelectorAll("[data-go]").forEach(button => {
+
     button.addEventListener("click", () => {
         showPage(button.dataset.go);
     });
+
 });
 
 
+// =====================================
 // ADD FLOCK
+// =====================================
 
 document.getElementById("flock-form").addEventListener("submit", function(e) {
 
+    // Stop the page from refreshing
     e.preventDefault();
 
-    const name = document.getElementById("batch-name").value;
+    // Get values from the form
+    const name = document.getElementById("batch-name").value.trim();
     const birds = Number(document.getElementById("bird-count").value);
     const date = document.getElementById("arrival-date").value;
 
-    if (birds <= 0) return;
+    // Validate the bird count
+    if (!Number.isInteger(birds) || birds <= 0) {
+        alert("Enter a valid whole number of birds.");
+        return;
+    }
 
+    // Add the new flock
     flocks.push({
         name,
         birds,
         date
     });
 
+    // Save and update the application
     saveData();
     renderFlocks();
+    updateDashboard();
 
+    // Clear the form
     this.reset();
 
 });
 
 
+// =====================================
 // DISPLAY FLOCKS
+// =====================================
 
 function renderFlocks() {
 
     const list = document.getElementById("flock-list");
 
+    // Clear the existing list
     list.innerHTML = "";
 
+    // Display every flock
     flocks.forEach(flock => {
 
         list.innerHTML += `
@@ -115,7 +181,9 @@ function renderFlocks() {
 }
 
 
+// =====================================
 // ADD FEED
+// =====================================
 
 document.getElementById("feed-form").addEventListener("submit", function(e) {
 
@@ -124,28 +192,41 @@ document.getElementById("feed-form").addEventListener("submit", function(e) {
     const type = document.getElementById("feed-type").value;
     const quantity = Number(document.getElementById("feed-quantity").value);
 
-    if (quantity <= 0) return;
+    if (!Number.isFinite(quantity) || quantity <= 0) {
+        alert("Enter a valid feed quantity.");
+        return;
+    }
 
+    // Check whether this feed type already exists
     const existingFeed = feeds.find(feed => feed.type === type);
 
     if (existingFeed) {
+
+        // Add to the existing quantity
         existingFeed.quantity += quantity;
+
     } else {
+
+        // Create a new feed record
         feeds.push({
             type,
             quantity
         });
+
     }
 
     saveData();
     renderFeeds();
+    updateDashboard();
 
     this.reset();
 
 });
 
 
+// =====================================
 // DISPLAY FEED
+// =====================================
 
 function renderFeeds() {
 
@@ -171,14 +252,16 @@ function renderFeeds() {
 }
 
 
+// =====================================
 // ADD HEALTH RECORD
+// =====================================
 
 document.getElementById("health-form").addEventListener("submit", function(e) {
 
     e.preventDefault();
 
     const type = document.getElementById("health-type").value;
-    const description = document.getElementById("health-description").value;
+    const description = document.getElementById("health-description").value.trim();
     const date = document.getElementById("health-date").value;
 
     healthRecords.push({
@@ -189,13 +272,16 @@ document.getElementById("health-form").addEventListener("submit", function(e) {
 
     saveData();
     renderHealth();
+    updateDashboard();
 
     this.reset();
 
 });
 
 
+// =====================================
 // DISPLAY HEALTH RECORDS
+// =====================================
 
 function renderHealth() {
 
@@ -221,7 +307,9 @@ function renderHealth() {
 }
 
 
+// =====================================
 // ADD EXPENSE
+// =====================================
 
 document.getElementById("expense-form").addEventListener("submit", function(e) {
 
@@ -229,9 +317,12 @@ document.getElementById("expense-form").addEventListener("submit", function(e) {
 
     const category = document.getElementById("expense-category").value;
     const amount = Number(document.getElementById("expense-amount").value);
-    const description = document.getElementById("expense-description").value;
+    const description = document.getElementById("expense-description").value.trim();
 
-    if (amount <= 0) return;
+    if (!Number.isFinite(amount) || amount <= 0) {
+        alert("Enter a valid expense amount.");
+        return;
+    }
 
     expenses.push({
         category,
@@ -241,13 +332,16 @@ document.getElementById("expense-form").addEventListener("submit", function(e) {
 
     saveData();
     renderExpenses();
+    updateDashboard();
 
     this.reset();
 
 });
 
 
+// =====================================
 // DISPLAY EXPENSES
+// =====================================
 
 function renderExpenses() {
 
@@ -273,7 +367,9 @@ function renderExpenses() {
 }
 
 
+// =====================================
 // FORMAT NIGERIAN CURRENCY
+// =====================================
 
 function formatMoney(amount) {
 
@@ -286,31 +382,42 @@ function formatMoney(amount) {
 }
 
 
+// =====================================
 // UPDATE DASHBOARD
+// =====================================
 
 function updateDashboard() {
 
+    // Calculate total birds
     const totalBirds = flocks.reduce(
         (total, flock) => total + flock.birds, 0
     );
 
+    // Calculate total feed
     const totalFeed = feeds.reduce(
         (total, feed) => total + feed.quantity, 0
     );
 
+    // Calculate total expenses
     const totalExpenses = expenses.reduce(
         (total, expense) => total + expense.amount, 0
     );
 
+
+    // Update dashboard statistics
     document.getElementById("total-birds").textContent = totalBirds;
 
-    document.getElementById("total-feed").textContent = totalFeed + " kg";
+    document.getElementById("total-feed").textContent =
+        totalFeed + " kg";
 
-    document.getElementById("total-health").textContent = healthRecords.length;
+    document.getElementById("total-health").textContent =
+        healthRecords.length;
 
     document.getElementById("total-expenses").textContent =
         formatMoney(totalExpenses);
 
+
+    // Update farm overview
     document.getElementById("overview-birds").textContent =
         totalBirds + " birds";
 
@@ -320,9 +427,13 @@ function updateDashboard() {
     document.getElementById("overview-health").textContent =
         healthRecords.length;
 
-    document.getElementById("report-birds").textContent = totalBirds;
 
-    document.getElementById("report-feed").textContent = totalFeed + " kg";
+    // Update reports
+    document.getElementById("report-birds").textContent =
+        totalBirds;
+
+    document.getElementById("report-feed").textContent =
+        totalFeed + " kg";
 
     document.getElementById("report-expenses").textContent =
         formatMoney(totalExpenses);
@@ -330,7 +441,9 @@ function updateDashboard() {
 }
 
 
+// =====================================
 // DISPLAY DATE
+// =====================================
 
 document.getElementById("today").textContent =
     new Date().toLocaleDateString("en-NG", {
@@ -341,17 +454,22 @@ document.getElementById("today").textContent =
     });
 
 
+// =====================================
 // INITIALIZE APPLICATION
+// =====================================
 
 function init() {
 
+    // Display saved records
     renderFlocks();
     renderFeeds();
     renderHealth();
     renderExpenses();
 
+    // Calculate dashboard statistics
     updateDashboard();
 
 }
 
+// Run the application
 init();

@@ -9,10 +9,37 @@
 </head>
 <body>
 
-    <div class="app">
+    <!-- LANDING PAGE -->
+    <section id="landing-page">
 
-        <!-- Sidebar -->
+        <nav class="landing-nav">
+            <h2>PoultryPal</h2>
+            <a href="#features">Features</a>
+        </nav>
+
+        <div class="hero">
+            <h1>Manage Your Poultry Farm Smarter</h1>
+
+            <p>
+                Keep track of your broilers, feed,
+                health records and farm expenses
+                in one place.
+            </p>
+
+            <button id="get-started" type="button">
+                Get Started
+            </button>
+        </div>
+
+    </section>
+
+
+    <!-- ENTIRE APPLICATION -->
+    <div class="app" id="app-container" hidden>
+
+        <!-- SIDEBAR -->
         <aside class="sidebar">
+
             <h2 class="logo">🐔 PoultryPal</h2>
 
             <p class="menu-title">MENU</p>
@@ -26,14 +53,19 @@
                 <button class="nav-btn" data-page="reports">Reports</button>
             </nav>
 
+            <div class="sidebar-bottom">
+                <p>Broiler Farm Management</p>
+                <p>PoultryPal</p>
+            </div>
 
         </aside>
 
 
-        <!-- Main Content -->
+        <!-- MAIN CONTENT -->
         <main class="main">
 
             <header class="topbar">
+
                 <div>
                     <h2 id="page-title">Dashboard</h2>
                     <p>Welcome back! Here's your farm overview.</p>
@@ -41,24 +73,30 @@
 
                 <div class="profile">
                     <span>👤</span>
+
                     <div>
                         <strong>Farm Manager</strong>
                         <small>Administrator</small>
                     </div>
                 </div>
+
             </header>
 
 
-            <!-- Dashboard -->
+            <!-- DASHBOARD -->
             <section class="page active" id="dashboard">
 
                 <div class="welcome">
+
                     <div>
                         <h2>Your farm at a glance 🐔</h2>
                         <p>Monitor your broiler production and farm activities.</p>
                     </div>
+
                     <span id="today"></span>
+
                 </div>
+
 
                 <div class="stats">
 
@@ -88,6 +126,7 @@
 
                 </div>
 
+
                 <div class="content-grid">
 
                     <div class="panel">
@@ -109,6 +148,7 @@
                             <strong id="overview-health">0</strong>
                         </div>
                     </div>
+
 
                     <div class="panel">
                         <h3>Quick Actions</h3>
@@ -135,7 +175,7 @@
             </section>
 
 
-            <!-- Flock Management -->
+            <!-- FLOCK MANAGEMENT -->
             <section class="page" id="flock">
 
                 <div class="section-heading">
@@ -145,24 +185,40 @@
                     </div>
                 </div>
 
+
                 <form id="flock-form" class="panel form">
 
                     <h3>Add New Flock</h3>
 
-                    <label>Batch Name</label>
-                    <input type="text" id="batch-name"
-                        placeholder="e.g. Batch 001" required>
+                    <label for="batch-name">Batch Name</label>
+                    <input
+                        type="text"
+                        id="batch-name"
+                        placeholder="e.g. Batch 001"
+                        required
+                    >
 
-                    <label>Number of Birds</label>
-                    <input type="number" id="bird-count"
-                        min="1" placeholder="Enter number of birds" required>
+                    <label for="bird-count">Number of Birds</label>
+                    <input
+                        type="number"
+                        id="bird-count"
+                        min="1"
+                        step="1"
+                        placeholder="Enter number of birds"
+                        required
+                    >
 
-                    <label>Arrival Date</label>
-                    <input type="date" id="arrival-date" required>
+                    <label for="arrival-date">Arrival Date</label>
+                    <input
+                        type="date"
+                        id="arrival-date"
+                        required
+                    >
 
                     <button type="submit">Add Flock</button>
 
                 </form>
+
 
                 <div class="panel">
                     <h3>Registered Flocks</h3>
@@ -176,6 +232,7 @@
                                     <th>Arrival Date</th>
                                 </tr>
                             </thead>
+
                             <tbody id="flock-list"></tbody>
                         </table>
                     </div>
@@ -184,7 +241,7 @@
             </section>
 
 
-            <!-- Feed Inventory -->
+            <!-- FEED INVENTORY -->
             <section class="page" id="feed">
 
                 <h2>Feed Inventory</h2>
@@ -194,7 +251,8 @@
 
                     <h3>Add Feed Stock</h3>
 
-                    <label>Feed Type</label>
+                    <label for="feed-type">Feed Type</label>
+
                     <select id="feed-type" required>
                         <option value="">Select feed type</option>
                         <option>Starter Feed</option>
@@ -202,13 +260,21 @@
                         <option>Finisher Feed</option>
                     </select>
 
-                    <label>Quantity (kg)</label>
-                    <input type="number" id="feed-quantity"
-                        min="1" placeholder="Quantity in kg" required>
+                    <label for="feed-quantity">Quantity (kg)</label>
+
+                    <input
+                        type="number"
+                        id="feed-quantity"
+                        min="1"
+                        step="any"
+                        placeholder="Quantity in kg"
+                        required
+                    >
 
                     <button type="submit">Add Feed</button>
 
                 </form>
+
 
                 <div class="panel">
                     <h3>Feed Stock</h3>
@@ -218,7 +284,7 @@
             </section>
 
 
-            <!-- Health Records -->
+            <!-- HEALTH RECORDS -->
             <section class="page" id="health">
 
                 <h2>Health Records</h2>
@@ -228,7 +294,8 @@
 
                     <h3>New Health Record</h3>
 
-                    <label>Activity</label>
+                    <label for="health-type">Activity</label>
+
                     <select id="health-type" required>
                         <option value="">Select activity</option>
                         <option>Vaccination</option>
@@ -237,16 +304,27 @@
                         <option>Medication Record</option>
                     </select>
 
-                    <label>Description</label>
-                    <input type="text" id="health-description"
-                        placeholder="Enter details" required>
+                    <label for="health-description">Description</label>
 
-                    <label>Date</label>
-                    <input type="date" id="health-date" required>
+                    <input
+                        type="text"
+                        id="health-description"
+                        placeholder="Enter details"
+                        required
+                    >
+
+                    <label for="health-date">Date</label>
+
+                    <input
+                        type="date"
+                        id="health-date"
+                        required
+                    >
 
                     <button type="submit">Save Record</button>
 
                 </form>
+
 
                 <div class="panel">
                     <h3>Health History</h3>
@@ -256,7 +334,7 @@
             </section>
 
 
-            <!-- Expenses -->
+            <!-- EXPENSES -->
             <section class="page" id="expenses">
 
                 <h2>Farm Expenses</h2>
@@ -266,7 +344,8 @@
 
                     <h3>Record Expense</h3>
 
-                    <label>Expense Category</label>
+                    <label for="expense-category">Expense Category</label>
+
                     <select id="expense-category" required>
                         <option value="">Select category</option>
                         <option>Feed</option>
@@ -276,17 +355,30 @@
                         <option>Other</option>
                     </select>
 
-                    <label>Amount (₦)</label>
-                    <input type="number" id="expense-amount"
-                        min="1" placeholder="Enter amount" required>
+                    <label for="expense-amount">Amount (₦)</label>
 
-                    <label>Description</label>
-                    <input type="text" id="expense-description"
-                        placeholder="Expense details" required>
+                    <input
+                        type="number"
+                        id="expense-amount"
+                        min="1"
+                        step="any"
+                        placeholder="Enter amount"
+                        required
+                    >
+
+                    <label for="expense-description">Description</label>
+
+                    <input
+                        type="text"
+                        id="expense-description"
+                        placeholder="Expense details"
+                        required
+                    >
 
                     <button type="submit">Save Expense</button>
 
                 </form>
+
 
                 <div class="panel">
                     <h3>Expense History</h3>
@@ -296,13 +388,14 @@
             </section>
 
 
-            <!-- Reports -->
+            <!-- REPORTS -->
             <section class="page" id="reports">
 
                 <h2>Farm Reports</h2>
                 <p>A summary of your farm records.</p>
 
                 <div class="stats">
+
                     <div class="stat-card">
                         <p>Total Birds</p>
                         <h2 id="report-birds">0</h2>
@@ -317,6 +410,7 @@
                         <p>Total Expenses</p>
                         <h2 id="report-expenses">₦0</h2>
                     </div>
+
                 </div>
 
             </section>
@@ -325,6 +419,8 @@
 
     </div>
 
+
     <script src="script.js"></script>
+
 </body>
 </html>
